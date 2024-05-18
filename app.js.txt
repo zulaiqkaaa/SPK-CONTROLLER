@@ -17,10 +17,38 @@ var database = firebase.database();
 // Elements
 var paidButton = document.getElementById("paidButton");
 var codButton = document.getElementById("codButton");
+var person1Div = document.getElementById("person1");
 var person2Div = document.getElementById("person2");
 var button1 = document.getElementById("button1");
 var button2 = document.getElementById("button2");
 var button3 = document.getElementById("button3");
+
+// Initialize QR Code Scanner
+function onScanSuccess(decodedText, decodedResult) {
+  // Handle on success condition with the decoded text or result.
+  console.log(`Scan result: ${decodedText}`);
+  person1Div.style.display = "block";
+  // You can add more logic here based on the decoded text.
+  html5QrCode.stop().then(ignore => {
+    // QR Code scanning is stopped.
+  }).catch(err => {
+    // Stop failed, handle it.
+  });
+}
+
+function onScanError(errorMessage) {
+  // Handle on error condition, with error message.
+  console.error(`Scan error: ${errorMessage}`);
+}
+
+var html5QrCode = new Html5Qrcode("qr-reader");
+html5QrCode.start({ facingMode: "environment" }, {
+  fps: 10,    // Optional, frame per seconds for qr code scanning
+  qrbox: { width: 250, height: 250 }  // Optional, if you want bounded box UI
+}, onScanSuccess, onScanError).catch(err => {
+  // Start failed, handle it.
+  console.error(`Unable to start scanning, error: ${err}`);
+});
 
 // Event listeners for Person 1
 paidButton.addEventListener("click", function() {
