@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parcel Control</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <h1>Parcel Control</h1>
+  <div id="person1">
+    <button id="paidButton">Paid</button>
+    <button id="codButton">COD</button>
+  </div>
+  <div id="person2" style="display: none;">
+    <button id="button1">Solenoid 2</button>
+    <button id="button2">Solenoid 3</button>
+    <button id="button3">Solenoid 4</button>
+  </div>
+</body>
+</html>

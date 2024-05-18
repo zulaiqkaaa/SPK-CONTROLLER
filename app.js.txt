@@ -1,0 +1,69 @@
+// Firebase configuration (replace with your own config)
+var firebaseConfig = {
+  apiKey: "AIzaSyDOY1oXtYBeNo02hRpnzPsxnf6sTAEpXGw",
+  authDomain: "spk-smart-parcel-keeper.firebaseapp.com",
+  databaseURL: "https://spk-smart-parcel-keeper.firebaseio.com",
+  projectId: "spk-smart-parcel-keeper",
+  storageBucket: "spk-smart-parcel-keeper.appspot.com",
+  messagingSenderId: "920209179795",
+  appId: "1:920209179795:web:044aff2314b8df0636f966",
+  measurementId: "G-R0LMJJBN9E"
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+var database = firebase.database();
+
+// Elements
+var paidButton = document.getElementById("paidButton");
+var codButton = document.getElementById("codButton");
+var person2Div = document.getElementById("person2");
+var button1 = document.getElementById("button1");
+var button2 = document.getElementById("button2");
+var button3 = document.getElementById("button3");
+
+// Event listeners for Person 1
+paidButton.addEventListener("click", function() {
+  firebase.database().ref("status").set("paid");
+  notifyPerson2("Parcel Delivered. Solenoid 1 will open for 30 seconds.");
+});
+
+codButton.addEventListener("click", function() {
+  firebase.database().ref("status").set("cod");
+  notifyPerson2("COD selected. Solenoid 1 will open for 2 minutes.");
+});
+
+// Event listeners for Person 2
+button1.addEventListener("click", function() {
+  controlSolenoid(2);
+});
+button2.addEventListener("click", function() {
+  controlSolenoid(3);
+});
+button3.addEventListener("click", function() {
+  controlSolenoid(4);
+});
+
+// Firebase listener for notifications
+firebase.database().ref("notification").on("value", function(snapshot) {
+  var message = snapshot.val();
+  if (message) {
+    alert(message);
+    person2Div.style.display = "block";
+  }
+});
+
+// Function to notify Person 2
+function notifyPerson2(message) {
+  firebase.database().ref("notification").set(message);
+}
+
+// Function to control solenoids
+function controlSolenoid(solenoid) {
+  // Send command to Arduino (via Bluetooth or other method)
+  console.log("Control solenoid", solenoid);
+  // After 30 seconds, close solenoid
+  setTimeout(function() {
+    console.log("Solenoid", solenoid, "closed");
+  }, 30000);
+}
