@@ -7,11 +7,13 @@
   <link rel="stylesheet" href="style.css">
   <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+  <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
   <script src="app.js" defer></script>
 </head>
 <body>
   <h1>Parcel Control</h1>
-  <div id="person1">
+  <div id="qr-reader" style="width: 500px;"></div>
+  <div id="person1" style="display: none;">
     <button id="paidButton">Paid</button>
     <button id="codButton">COD</button>
   </div>
